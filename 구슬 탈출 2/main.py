@@ -26,8 +26,11 @@ def dfs(input_depth, input_dir_idx):
         if next_blue_value == next_red_value == 1:  # 벽에 막혔을 경우
             return
         if next_blue_value == 0:
+            pass
         elif next_blue_value == 1:
+            pass
         elif next_blue_value == 3:
+            pass
         elif next_blue_value == 4:
             if result == -1 or result < input_depth + 1:
                 result = input_depth + 1
