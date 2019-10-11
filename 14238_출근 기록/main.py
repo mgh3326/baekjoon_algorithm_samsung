@@ -4,47 +4,57 @@ sys.stdin = open("input.txt")
 
 input_str = input()
 alpha_dict = {
-    "A": 0,
-    "B": 1,
-    "C": 2
+    "B": 0,
+    "C": 1
 }
-alpha_list = ["A", "B", "C"]
+alpha_list = ["B", "C"]
 m = len(input_str)
 
 result = -1
-alpha_count_list = [0] * 3
+alpha_count_list = [0] * 2
+a_count = 0
 queue = []
 for i in range(m):
-    alpha_count_list[alpha_dict[input_str[i]]] += 1
-for i in range(3):
-    if alpha_count_list[i] != 0:
-        copy = alpha_count_list.copy()
-        copy[i] -= 1
-        queue.append((tuple(copy), alpha_list[i]))
-queue_idx = 0
-is_end = False
-while True:
-    if queue_idx >= len(queue):
-        break
-    current_alpha_tuple, current_str = queue[queue_idx]
-    len_current_str = len(current_str)
+    if input_str[i] == "A":
+        a_count += 1
+    else:
+        alpha_count_list[alpha_dict[input_str[i]]] += 1
+total_count = sum(alpha_count_list)
+if total_count > a_count + 1:
+    pass
+else:
+    memo = [False] * (a_count + 1)
+    queue = []
     for i in range(3):
-        if current_alpha_tuple[i] != 0:
-            if i == 1:  # B
-                if current_str[-1] == "B":
-                    continue
-            elif i == 2:  # C
-                if current_str[-1] == "C" or (len_current_str >= 2 and current_str[-2] == "C"):
-                    continue
-            current_alpha_list = list(current_alpha_tuple)
-            current_alpha_list[i] -= 1
-            next_str = current_str + alpha_list[i]
-            if len_current_str + 1 == m:
-                result = next_str
-                is_end = True
-                break
-            queue.append((tuple(current_alpha_list), next_str))
-    if is_end:
-        break
-    queue_idx += 1
+        if i == 2:
+            queue.append((alpha_count_list, " ", total_count))
+        else:
+            if alpha_count_list[i] != 0:
+                copy = alpha_count_list.copy()
+                copy[i] -= 1
+                queue.append((tuple(copy), alpha_list[i], total_count - 1))
+    queue_idx = 0
+    while True:
+        if queue_idx >= len(queue):
+            break
+        current_tuple, current_str, current_count = queue[queue_idx]
+        if current_count == 0:
+            result = ""
+            for value in current_str:
+                if value == " ":
+                    pass
+                else:
+                    result += value
+                result += "A"
+            result = result[:-1]
+            break
+        for i in range(3):
+            if i == 2:
+                queue.append((current_tuple, current_str + " ", current_count))
+            else:
+                if current_tuple[i] != 0:
+                    alpha_count_list = list(current_tuple)
+                    alpha_count_list[i] -= 1
+                    queue.append((tuple(alpha_count_list), current_str + alpha_list[i], current_count - 1))
+        queue_idx += 1
 print(result)
