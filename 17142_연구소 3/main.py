@@ -16,14 +16,17 @@ def dfs(current_idx, depth):
     if depth == m:
         if current_value != 0:
             return
+        if len(min_space_dict) == 0:
+            result = 0
+            return
         if result == -1 or result > max(min_space_dict.values()):
             result = max(min_space_dict.values())
         return
     for i in range(virus_len)[current_idx:]:
         start_h, start_w = virus_list[i]
         queue = [[start_h, start_w, 1]]
-        visit_set = set()
-        visit_set.add((start_h, start_w))
+        visit_dict = dict()
+        visit_dict[(start_h, start_w)] = 0
         while True:
             # BFS로 채워가면 되겠다
             if len(queue) == 0:
@@ -35,26 +38,31 @@ def dfs(current_idx, depth):
                 if next_h < 0 or next_w < 0 or next_h >= n or next_w >= n:
                     continue
                 if board_list[next_h][next_w] == 0:
-                    if (next_h, next_w) in visit_set:
+                    if (next_h, next_w) in visit_dict:
                         continue
-                    visit_set.add((next_h, next_w))
+                    if (next_h, next_w) not in visit_dict:
+                        visit_dict[(next_h, next_w)] = 0
+                    visit_dict[(next_h, next_w)] += 1
                     queue.append([next_h, next_w, cost + 1])
                     if len(space_dict[(next_h, next_w)]) == 0:
                         current_value -= 1
                     if min_space_dict[(next_h, next_w)] == -1 or min_space_dict[(next_h, next_w)] > cost:
                         min_space_dict[(next_h, next_w)] = cost
                     space_dict[(next_h, next_w)].append(cost)
-        dfs(current_idx + 1, depth + 1)
-        for current_h, current_w in list(visit_set):
+        my_list.append(i)
+        dfs(i + 1, depth + 1)
+        my_list.pop()
+        for current_h, current_w in (visit_dict.keys()):
             if current_h == start_h and current_h == start_h:
                 continue
-            pop = space_dict[(current_h, current_w)].pop()
+            value = visit_dict[current_h, current_w]
+            for i in range(value):
+                space_dict[(current_h, current_w)].pop()
             if len(space_dict[(current_h, current_w)]) == 0:
                 min_space_dict[(current_h, current_w)] = -1
                 current_value += 1
             else:
-                if pop == min_space_dict[(current_h, current_w)]:
-                    min_space_dict[(current_h, current_w)] = min(space_dict[(current_h, current_w)])
+                min_space_dict[(current_h, current_w)] = min(space_dict[(current_h, current_w)])
 
 
 n, m = map(int, input().split())
@@ -82,6 +90,6 @@ for i in range(n):
 
     board_list.append(temp_list)
 current_value = space_len
-
+my_list = []
 dfs(0, 0)
 print(result)
