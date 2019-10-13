@@ -1,7 +1,6 @@
 import sys
 
 sys.stdin = open("./data/input1.txt", "r")
-import heapq
 
 top_num = int(input())
 top_list = list(map(int, input().split()))
@@ -11,24 +10,17 @@ result_list = []
 
 for top_index in range(top_num):
     top = top_list[top_index]
-    if top > save_max:
-        result_list.append(0)
-    else:
-        copy = save_list.copy()
-        result = -1
-        while True:
-            if len(copy) == 0:
-                break
-            heappop = heapq.heappop(copy)
-            save = heappop[0] * -1
-            if save < top:
-                break
-            if result < heappop[1] + 1:
-                result = heappop[1] + 1
-        result_list.append(result)
-    heapq.heappush(save_list, (top * -1, top_index))
-    if top > save_max:
-        save_max = top
+    while True:
+        if len(save_list) == 0:
+            result = 0
+            break
+        save, result = save_list[-1]
+        if save > top:
+            break
+        else:
+            save_list.pop()
+    result_list.append(result)
+    save_list.append((top, top_index + 1))
 
 for result in result_list:
     print(result, end=" ")
