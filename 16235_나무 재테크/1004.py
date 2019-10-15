@@ -54,14 +54,10 @@ while True:
                 board_list[h][w] -= current_tree
                 current_tree_list[len(current_tree_list) - current_tree_idx - 1] = (current_tree + 1)
                 if (current_tree + 1) % 5 == 0:
-                    for dh, dw in dir_list:
-                        nh = h + dh
-                        nw = w + dw
-                        if nh < 0 or nw < 0 or nh >= N or nw >= N:
-                            continue
-                        if (nh, nw) not in fall_temp_dict:
-                            fall_temp_dict[nh, nw] = 0
-                        fall_temp_dict[nh, nw] += 1
+
+                    if (h, w) not in fall_temp_dict:
+                        fall_temp_dict[h, w] = 0
+                    fall_temp_dict[h, w] += 1
             else:
                 dead_list = current_tree_list[:len(current_tree_list) - current_tree_idx - 1 + 1]
                 if current_tree_idx == 0:
@@ -79,10 +75,16 @@ while True:
     #     board_list[h][w] += temp_dict[h, w]
     # 가을
     for h, w in fall_temp_dict.keys():
-        if (h, w) not in tree_set:
-            tree_set.add((h, w))
-        tree_list[h][w].extend([1] * fall_temp_dict[h, w])
-        result += fall_temp_dict[h, w]
+        for dh, dw in dir_list:
+            nh = h + dh
+            nw = w + dw
+            if nh < 0 or nw < 0 or nh >= N or nw >= N:
+                continue
+
+            if (nh, nw) not in tree_set:
+                tree_set.add((nh, nw))
+            tree_list[nh][nw].extend([1] * fall_temp_dict[h, w])
+            result += fall_temp_dict[h, w]
 
     # 겨울
     for h in range(N):
