@@ -5,7 +5,7 @@ sys.stdin = open("data/input.txt")
 
 def dfs(depth):
     global result
-    global current_value
+    global start_current_value
     if depth == len(cctv_list):
         if result > current_value:
             result = current_value
@@ -85,6 +85,6 @@ for h in range(n):
             cctv_list.append([h, w, temp_list[w]])
 
     board_list.append(temp_list)
-current_value = result
+start_current_value = result
 dfs(0)
 print(result)

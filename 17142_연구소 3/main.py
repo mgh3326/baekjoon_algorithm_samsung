@@ -11,7 +11,7 @@ dir_list = [
 
 
 def dfs(current_idx, depth):
-    global current_value
+    global start_current_value
     global result
     if depth == m:
         temp_set = set()
@@ -70,7 +70,7 @@ for i in range(n):
             space_len += 1
 
     board_list.append(temp_list)
-current_value = space_len
+start_current_value = space_len
 my_list = []
 virus_set = set()
 dfs(0, 0)
