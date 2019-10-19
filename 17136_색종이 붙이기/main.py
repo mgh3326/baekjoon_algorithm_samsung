@@ -70,7 +70,7 @@ for h in range(n):
             number_list.append([h, w])
             number_dict[(h, w)] = False
     board_list.append(temp_list)
-# for number_idx in range(len(number_list)):
+# for number_idx in range(len(first_number_list)):
 #     dfs(number_idx, 0)
 if len(number_list) == 0:
     result = 0
