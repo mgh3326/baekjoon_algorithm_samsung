@@ -24,7 +24,7 @@ while True:
         break
     remove_list = []
     create_point_list = []
-    # TODO 시간초과로 인해 실패하였다. sort 하지 않고 할수 있는 방법이 있을까? 우선순위 큐를 사용하면 가능해질까?
+    # (해결) 시간초과로 인해 실패하였다. sort 하지 않고 할수 있는 방법이 있을까? 우선순위 큐를 사용하면 가능해질까?
     # 봄
     for tree_dict_key in tree_dict.keys():
         tree_dict_value_list = tree_dict[tree_dict_key]

@@ -3,13 +3,12 @@ import sys
 sys.stdin = open("./data/input1.txt")
 
 
-def dfs(depth):
+def dfs(depth, number_list):
     global result
     if depth == 5:
         return
 
     for dir_idx in range(len(dir_list)):
-        number_list = save_list[-1]
         visit_dict = {}
         current_board_list = [[-1 for _ in range(N)] for _ in range(N)]
         # 회전하기
@@ -40,9 +39,7 @@ def dfs(depth):
                         new_number_list.append([current_h, current_w, value])
                     break
                 current_h, current_w = nh, nw
-        save_list.append(new_number_list)
-        dfs(depth + 1)
-        save_list.pop()
+        dfs(depth + 1, new_number_list)
 
 
 dir_list = [
@@ -60,8 +57,5 @@ for h in range(N):
         if board_list[h][w] != 0:
             first_number_list.append([h, w, board_list[h][w]])
             result = max(result, board_list[h][w])
-
-save_list = []
-save_list.append(first_number_list)
-dfs(0)
+dfs(0, first_number_list)
 print(result)

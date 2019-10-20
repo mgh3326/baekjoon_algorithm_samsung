@@ -12,5 +12,5 @@ for A in A_list:
     if (A - B) < 0:
         result += 1
     else:
-        result += math.ceil((A - B) / C) + 1  # TODO ceil의 음수조건 유의하자!
+        result += math.ceil((A - B) / C) + 1  # (해결) ceil의 음수조건 유의하자!
 print(result)

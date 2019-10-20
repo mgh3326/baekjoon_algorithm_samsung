@@ -23,7 +23,7 @@ for i in range(board_size):
 board_set.add(tuple(board_list))
 
 queue.append([board_dict.copy(), 0])
-# TODO 더 효율적으로 짤수 없을까? 효율적으로 짜면, 문제도 맞춰질것 같다.
+#  더 효율적으로 짤수 없을까? 효율적으로 짜면, 문제도 맞춰질것 같다. (해결)
 while True:
     if len(queue) == 0:
         break

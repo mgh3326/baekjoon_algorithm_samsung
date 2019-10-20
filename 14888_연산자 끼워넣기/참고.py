@@ -1,4 +1,4 @@
-# TODO next_permuations 재귀 사용하지 않고 이용하면 효율적일거 같다
+# (해결) next_permuations 재귀 사용하지 않고 이용하면 효율적일거 같다
 # 다음순열 구하기
 def next_permutations(a):
     # i찾기
