@@ -5,7 +5,7 @@ sys.stdin = open("data/input.txt")
 
 def dfs(depth):
     global result
-    global current_value
+    global start_current_value
     if depth == len(cctv_list):
         if result > current_value:
             result = current_value
@@ -60,7 +60,7 @@ cctv_dict = {
         [2, 3],
         [0, 3],
         ],
-    4: [[3, 0, 1],  # 우 #TODO 여기 마지막 행을 누락해서 틀렸었다.
+    4: [[3, 0, 1],  # 우 #(해결) 여기 마지막 행을 누락해서 틀렸었다.
         [0, 1, 2],
         [1, 2, 3],
         [2, 3, 0],
@@ -85,6 +85,6 @@ for h in range(n):
             cctv_list.append([h, w, temp_list[w]])
 
     board_list.append(temp_list)
-current_value = result
+start_current_value = result
 dfs(0)
 print(result)

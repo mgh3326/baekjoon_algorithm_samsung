@@ -36,14 +36,14 @@ for permutation in permutations:
                 [r + s - 1, c + s - 1]
             ]
             current_h, current_w = start_point[0]
-            current_value = board_list[current_h][current_w]
+            start_current_value = board_list[current_h][current_w]
             for dir_idx in range(len(dh)):
                 while True:
                     next_h = current_h + dh[dir_idx]
                     next_w = current_w + dw[dir_idx]
                     _current_value = board_list[next_h][next_w]
-                    board_list[next_h][next_w] = current_value
-                    current_value = _current_value
+                    board_list[next_h][next_w] = start_current_value
+                    start_current_value = _current_value
                     current_h, current_w = next_h, next_w
                     if next_h == start_point[my_list[dir_idx][0]][0] and next_w == start_point[my_list[dir_idx][1]][1]:
                         break

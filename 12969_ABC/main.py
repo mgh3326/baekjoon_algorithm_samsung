@@ -23,19 +23,19 @@ for _index in range(n - 1):
     if is_end:
         break
     index = _index + 1
-    for current_value in memo[index].keys():
+    for start_current_value in memo[index].keys():
         if is_end:
             break
-        for memo_value in memo[index][current_value]:
+        for memo_value in memo[index][start_current_value]:
             if is_end:
                 break
-            memo_str = alpha_dict[(memo_value, current_value)]
+            memo_str = alpha_dict[(memo_value, start_current_value)]
             for i in range(3):
                 alpha_count_list = list(memo_value)
                 temp_count = 0
                 for j in range(i):
                     temp_count += alpha_count_list[j]
-                next_value = temp_count + current_value
+                next_value = temp_count + start_current_value
                 if next_value not in memo[index + 1]:
                     memo[index + 1][next_value] = set()
                 alpha_count_list[i] += 1

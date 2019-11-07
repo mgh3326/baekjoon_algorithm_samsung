@@ -10,7 +10,7 @@ dirs = [
 
 def dfs(current_idx, depth):
     global result
-    global current_value
+    global start_current_value
     current_h, current_w = number_list[current_idx % len(number_list)]
     if depth == len(number_list):
         if result == -1 or current_value < result:
@@ -56,7 +56,7 @@ def dfs(current_idx, depth):
             number_dict[(_h, _w)] = False
 
 
-current_value = 0
+start_current_value = 0
 result = -1
 n = 10
 board_list = []
@@ -70,7 +70,7 @@ for h in range(n):
             number_list.append([h, w])
             number_dict[(h, w)] = False
     board_list.append(temp_list)
-# for number_idx in range(len(number_list)):
+# for number_idx in range(len(first_number_list)):
 #     dfs(number_idx, 0)
 if len(number_list) == 0:
     result = 0
